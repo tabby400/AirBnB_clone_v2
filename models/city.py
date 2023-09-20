@@ -22,4 +22,4 @@ class City(BaseModel, Base):
 
     def __init__(self, *args, **kwargs):
         """instance of a city is initialized"""
-        super().__init__(*args, **kwargs)`
+        super().__init__(*args, **kwargs)
