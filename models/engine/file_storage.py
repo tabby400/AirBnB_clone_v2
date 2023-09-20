@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""This module defines a class to manage file storage for hbnb clone"""
+
+"""module defines class to manage file storage """
 from datetime import datetime
 import json
 from models.base_model import BaseModel
@@ -28,7 +29,7 @@ class FileStorage:
             return obj_dict
 
     def new(self, obj):
-        """Adds new object to storage dictionary"""
+        """Addsing thenew object to storage dictionary"""
         self.all().update({obj.to_dict()['__class__'] + '.' + obj.id: obj})
 
     def save(self):
@@ -41,7 +42,7 @@ class FileStorage:
             json.dump(temp, f)
 
     def reload(self):
-        """Loads storage dictionary from file"""
+        """Loading storage dictionary from file"""
         classes = {
             'BaseModel': BaseModel, 'User': User, 'Place': Place,
             'State': State, 'City': City, 'Amenity': Amenity,
@@ -57,11 +58,11 @@ class FileStorage:
             pass
 
     def close(self):
-        """display our HBNB data"""
+        """displaying our HBNB data"""
         self.reload()
 
     def delete(self, obj=None):
-        """delete an object"""
+        """deleting an object"""
         if obj is not None:
             key = obj.__class__.__name__+'.'+obj.id
             if key in self.__objects:
