@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""Defines the HBNB console."""
+
+"""Defining the HBNB console."""
+
 import cmd
 from shlex import split
 from models import storage
@@ -14,7 +16,7 @@ from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
-    """Defines the HolbertonBnB command interpreter."""
+    """Defining the console."""
 
     prompt = "(hbnb) "
     __classes = {
@@ -28,11 +30,11 @@ class HBNBCommand(cmd.Cmd):
     }
 
     def emptyline(self):
-        """Ignore empty spaces."""
+        """Ignoring empty spaces."""
         pass
 
     def do_quit(self, line):
-        """Quit command to exit the program."""
+        """Quiting command so as to exit the program."""
         return True
 
     def do_EOF(self, line):
@@ -42,21 +44,21 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, line):
         """Usage: create <class> <key 1>=<value 2> <key 2>=<value 2> ...
-        Create a new class instance with given keys/values and print its id.
+        Creating new class instance with given keys/values and print its id.
         """
         try:
             if not line:
                 raise SyntaxError()
             my_list = line.split(" ")
 
-            kwargs = {}
-            for i in range(1, len(my_list)):
-                key, value = tuple(my_list[i].split("="))
+            kwargs = {}  # empty dict
+            for p in range(1, len(my_list)):
+                key, value = tuple(my_list[p].split("="))
                 if value[0] == '"':
                     value = value.strip('"').replace("_", " ")
                 else:
                     try:
-                        value = eval(value)
+                        value = eval(value)  # evaluate
                     except (SyntaxError, NameError):
                         continue
                 kwargs[key] = value
