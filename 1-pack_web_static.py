@@ -7,6 +7,7 @@ from fabric.decorators import runs_once
 from fabric.api import local
 import os
 
+
 def do_pack():
     '''using web static content to generate archive'''
     local("mkdir -p versions")
