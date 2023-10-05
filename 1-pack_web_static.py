@@ -2,17 +2,19 @@
 ''' we are generating a tgz archive'''
 
 from fabric.api import *
+from datetime import datetime
+from fabric.decorators import runs_once
+from fabric.api import local
+import os
 
-
-@runs_once
 def do_pack():
-    ''' using theweb_static folder'''
+    '''using web static content to generate archive'''
     local("mkdir -p versions")
     path = ("versions/web_static_{}.tgz"
             .format(datetime.strftime(datetime.now(), "%Y%m%d%H%M%S")))
-    result = local("tar -cvzf {} web_static"
-                   .format(path))
 
-    if result.failed:  # if any exception give None
+    result = local("tar -cvzf {} -C web_static .".format(path))
+
+    if result.failed:
         return None
     return path
