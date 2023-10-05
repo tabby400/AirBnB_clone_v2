@@ -11,7 +11,7 @@ from os.path import exists
 env.hosts = ['18.207.3.198', '54.84.150.136']
 env.user = 'ubuntu'  # SSH username used
 env.key_filename = '~/.ssh/school'
-env.warn_only = True
+
 
 def do_deploy(archive_path):
     """
