@@ -1,34 +1,25 @@
 #!/usr/bin/env bash
+# Installing Nginx if it is not ainstalled
+# Creating necessary dirs
+# Creating a fake HTML file for testing
+# Creating symbolic link
+# Give ownership to ubuntu user and group
+# Update Nginx configuration
+# Then restart Nginx
+sudo apt-get -y update
+sudo apt-get -y upgrade
+sudo apt-get -y install nginx
+mkdir -p /data/web_static/releases/test /data/web_static/shared
+echo -e "<html>\n  <head>\n  </head>\n  <body>\n    Holberton School\n  </body>\n</html>" > /data/web_static/releases/test/index.html
+rm -rf /data/web_static/current
+ln -s /data/web_static/releases/test/ /data/web_static/current
+chown -R ubuntu:ubuntu /data/
+echo -e "server {
+    listen 80;
+    server_name _;
 
-#make sure that nginx is installed
-
-if  ! command -v  nginx > /dev/null; then
-    sudo apt-get update
-    sudo apt-get -y install nginx
-fi
-
-# these directories need to be there if not
-sudo mkdir -p /data/web_static/releases/test 
-sudo mkdir -p /data/web_static/shared
-
-#a fake HTML file for testing is put there
-echo "
-<html>
-  <head>
-  </head>
-  <body>
-    Holberton School
-  </body>
-</html>
-" | sudo tee /data/web_static/releases/test/index.html # put here
-
-# swymbolic link done and overwrite if exists
-sudo ln -sf /data/web_static/releases/test /data/web_static/current
-
-# owners to user and group
-sudo chown -hR ubuntu:ubuntu /data/
-
-#nginx config is updated
-sudo sed -i '38i\\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}\n' /etc/nginx/sites-available/default
-# Nginx is now started
-sudo service nginx restart
+    location /hbnb_static {
+        alias /data/web_static/current/;
+    }
+}" > /etc/nginx/sites-available/default
+service nginx restart
