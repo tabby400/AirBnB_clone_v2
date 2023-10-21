@@ -20,12 +20,11 @@ class State(BaseModel, Base):
                               cascade='all, delete, delete-orphan')
     else:
         name = ''
-    
+
     def __init__(self, *args, **kwargs):
         """initializing state"""
         super().__init__(*args, **kwargs)
 
-    
     if models.storage_t != "db":
         @property
         def cities(self):
