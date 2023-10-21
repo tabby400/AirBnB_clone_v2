@@ -19,6 +19,8 @@ class State(BaseModel, Base):
     else:
         name = ''
 
+    if models.storage_t != "db":
+
         @property
         def cities(self):
             '''returning list of City instances with state_id
